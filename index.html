@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudySphere AI | Smart Adaptive Flashcards</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="ri-brain-line"></i>
+                </div>
+                <span>StudySphere AI</span>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link active" data-tab="generate">
+                    <i class="ri-magic-line"></i>
+                    Create
+                </a>
+                <a href="#" class="nav-link" data-tab="study">
+                    <i class="ri-book-open-line"></i>
+                    Study
+                </a>
+                <a href="#" class="nav-link" data-tab="saved">
+                    <i class="ri-folder-line"></i>
+                    Library
+                </a>
+                <a href="#" class="nav-link" data-tab="stats">
+                    <i class="ri-bar-chart-line"></i>
+                    Analytics
+                </a>
+                <a href="#" class="nav-link" data-tab="pricing">
+                    <i class="ri-crown-line"></i>
+                    Premium
+                </a>
+            </nav>
+            <div class="header-actions">
+                <button id="authBtn" class="auth-btn">
+                    <i class="ri-user-line"></i>
+                    Sign In
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="ri-ai-generate"></i>
+                        AI-Powered Learning
+                    </div>
+                    <h1 class="hero-title">
+                        Master Any Subject with
+                        <span class="gradient-text">Smart Flashcards</span>
+                    </h1>
+                    <p class="hero-description">
+                        Transform your notes into intelligent study materials. Upload images, record voice, or paste text - our AI creates personalized flashcards that adapt to your learning style.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">10K+</span>
+                            <span class="stat-label">Students</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50K+</span>
+                            <span class="stat-label">Flashcards</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">95%</span>
+                            <span class="stat-label">Success Rate</span>
+                        </div>
+                    </div>
+                    <div class="hero-cta">
+                        <button class="cta-primary" id="startLearningBtn">
+                            <i class="ri-rocket-line"></i>
+                            Start Learning Now
+                        </button>
+                        <button class="cta-secondary" id="watchDemoBtn">
+                            <i class="ri-play-circle-line"></i>
+                            Watch Demo
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-card card-1">
+                        <i class="ri-lightbulb-line"></i>
+                        <span>Smart AI</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="ri-target-line"></i>
+                        <span>Adaptive</span>
+                    </div>
+                    <div class="floating-card card-3">
+                        <i class="ri-trending-up-line"></i>
+                        <span>Progress</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tabbed Content Section -->
+        <div class="tab-content">
+            <!-- CREATE TAB -->
+            <section id="generate-tab" class="tab-pane active">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Create Your Study Set</h2>
+                        <p class="subtitle">Choose your preferred method to create intelligent flashcards</p>
+                    </div>
+
+                    <!-- Input Methods -->
+                    <div class="input-methods">
+                        <!-- Method 1: Paste Notes -->
+                        <div class="method-card" data-method="text">
+                            <div class="method-header">
+                                <div class="method-icon">
+                                    <i class="ri-file-text-line"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Paste Your Notes</h3>
+                                    <p>Quick and easy text input</p>
+                                </div>
+                            </div>
+                            <div class="method-content">
+                                <textarea class="notes-input" placeholder="Paste your study notes, textbook content, or any text you want to learn..."></textarea>
+                                <div class="method-tips">
+                                    <i class="ri-information-line"></i>
+                                    <span>Tip: Include key concepts and definitions for better results</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Method 2: Upload Notes or Drag & Drop -->
+                        <div class="method-card" data-method="upload">
+                            <div class="method-header">
+                                <div class="method-icon">
+                                    <i class="ri-upload-line"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Upload Notes</h3>
+                                    <p>Upload documents or drag & drop files</p>
+                                </div>
+                            </div>
+                            <div class="method-content">
+                                <div class="upload-area" id="uploadArea">
+                                    <div class="upload-icon">
+                                        <i class="ri-upload-cloud-line"></i>
+                                    </div>
+                                    <h4>Drag & Drop Files</h4>
+                                    <p>or click to browse files</p>
+                                    <span class="upload-formats">Supports: TXT, DOC, DOCX, PDF</span>
+                                    <input type="file" id="fileUpload" accept=".txt,.doc,.docx,.pdf" hidden>
+                                </div>
+                                <div class="file-preview hidden" id="filePreview">
+                                    <div class="file-info">
+                                        <i class="ri-file-text-line"></i>
+                                        <span id="fileName">Document Name</span>
+                                    </div>
+                                    <button id="processFileBtn" class="generate-button">
+                                        <i class="ri-ai-generate"></i>
+                                        Process Document
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Method 3: Upload Images for Text Extraction -->
+                        <div class="method-card" data-method="image">
+                            <div class="method-header">
+                                <div class="method-icon">
+                                    <i class="ri-image-line"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Image to Text</h3>
+                                    <p>Extract text from images and screenshots</p>
+                                </div>
+                            </div>
+                            <div class="method-content">
+                                <div class="upload-area image-upload" id="imageUploadArea">
+                                    <div class="upload-icon">
+                                        <i class="ri-image-line"></i>
+                                    </div>
+                                    <h4>Upload Image</h4>
+                                    <p>Drag & drop or click to browse</p>
+                                    <span class="upload-formats">Supports: JPG, PNG, GIF, BMP</span>
+                                    <input type="file" id="imageUpload" accept="image/*" hidden>
+                                </div>
+                                <div class="image-preview hidden" id="imagePreview">
+                                    <div class="preview-container">
+                                        <img id="previewImage" src="" alt="Preview">
+                                        <div class="image-overlay">
+                                            <button id="extractTextBtn" class="generate-button">
+                                                <i class="ri-ai-generate"></i>
+                                                Extract Text
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Method 4: Record Voice Notes -->
+                        <div class="method-card" data-method="voice">
+                            <div class="method-header">
+                                <div class="method-icon">
+                                    <i class="ri-mic-line"></i>
+                                </div>
+                                <div class="method-info">
+                                    <h3>Record Voice Notes</h3>
+                                    <p>Speak your thoughts aloud</p>
+                                </div>
+                            </div>
+                            <div class="method-content">
+                                <button id="recordBtn" class="record-btn">
+                                    <i class="ri-mic-fill"></i>
+                                    <span>Start Recording</span>
+                                </button>
+                                <div class="recording-status hidden">
+                                    <div class="recording-indicator">
+                                        <div class="pulse"></div>
+                                        <span>Recording...</span>
+                                        <span id="recordingTimer" class="timer">00:00</span>
+                                    </div>
+                                </div>
+                                <div class="recording-transcript">
+                                    <h4>Live Transcript</h4>
+                                    <p id="transcriptPreview">Your speech will appear here as you speak...</p>
+                                </div>
+                                <div class="voice-actions hidden">
+                                    <button id="saveTranscriptBtn" class="generate-button">
+                                        <i class="ri-save-line"></i>
+                                        Use Transcript
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="generate-section">
+                        <button id="generateBtn" class="generate-button primary-large">
+                            <i class="ri-ai-generate"></i>
+                            Generate Smart Flashcards
+                        </button>
+                        <p class="generate-note">
+                            <i class="ri-information-line"></i>
+                            Free users can create up to 5 sets per day. <a href="#" id="upgradeLink">Upgrade to Premium</a> for unlimited access.
+                        </p>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loadingState" class="loading-state hidden">
+                        <div class="loading-content">
+                            <div class="loading-spinner"></div>
+                            <h3>Creating Your Flashcards</h3>
+                            <p>Our AI is analyzing your content and generating personalized study materials...</p>
+                            <div class="loading-steps">
+                                <div class="step active">
+                                    <i class="ri-check-line"></i>
+                                    <span>Processing content</span>
+                                </div>
+                                <div class="step">
+                                    <i class="ri-ai-generate"></i>
+                                    <span>Generating flashcards</span>
+                                </div>
+                                <div class="step">
+                                    <i class="ri-magic-line"></i>
+                                    <span>Optimizing for learning</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="resultsSection" class="results-section hidden">
+                        <div class="results-header">
+                            <h3>Your Generated Flashcards</h3>
+                            <div class="results-actions">
+                                <button class="action-btn secondary" id="shareBtn">
+                                    <i class="ri-share-line"></i>
+                                    Share
+                                </button>
+                                <button class="action-btn primary" id="saveToLibraryBtn">
+                                    <i class="ri-save-line"></i>
+                                    Save to Library
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flashcards-grid" id="flashcardsGrid">
+                            <!-- Flashcards will be generated here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>StudySphere AI | Smart Adaptive Flashcards</title>
+        <link rel="stylesheet" href="style.css">
+        <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Header content remains the same -->
+        <header class="header">
+            <!-- ... existing header content ... -->
+        </header>
+    
+        <main class="main">
+            <!-- Hero Section -->
+            <section class="hero">
+                <!-- ... existing hero content ... -->
+            </section>
+    
+            <!-- Tabbed Content Section -->
+            <div class="tab-content">
+                <!-- CREATE TAB -->
+                <section id="generate-tab" class="tab-pane active">
+                    <!-- ... existing tab content ... -->
+                </section>
+            </div>
+        </main>
+    
+        <!-- Payment Verification Page -->
+        <div id="payment-verification" class="hidden">
+            <div class="container">
+                <div class="spinner"></div>
+                <h2>Verifying your payment...</h2>
+                <p>Please wait while we process your payment.</p>
+            </div>
+        </div>
+    
+        <script type="module" src="js/main.js"></script>
+    </body>
+    </html>
+ 
+    <script src="script.js"></script>
+</body>
+</html>
