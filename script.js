@@ -729,12 +729,3 @@ function updateUIForAuthenticatedUser() {
   // You can show tabs or sections if needed
 }
 
-function showAuthModal() {
-  const modal = document.getElementById('authModal');
-  if (modal) {
-    modal.classList.remove('hidden');
-    document.getElementById('authError').textContent = '';
-    document.getElementById('authForm').dataset.mode = 'login';
-    document.getElementById('authModalTitle').textContent = 'Sign In';
-  }
-}
