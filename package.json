@@ -1,0 +1,18 @@
+{
+    "name": "studysphere-ai",
+    "version": "1.0.0",
+    "description": "AI-powered flashcard learning platform",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@supabase/supabase-js": "^2.57.0"
+    },
+    "devDependencies": {
+        "supabase": "^2.39.2",
+        "vite": "^4.4.0"
+    }
+}
