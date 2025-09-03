@@ -133,18 +133,5 @@ export const userAPI = {
   }
 }
 
-try {
-  // Attempt to load user data
-  const profile = await userAPI.getProfile()
-  console.log('User profile:', profile)
-} catch (error) {
-  console.error('Error loading user data:', error.message || error)
-}
-
-try {
-  // Attempt to load study sets
-  const studySets = await studySetAPI.getStudySets()
-  console.log('Study sets:', studySets)
-} catch (error) {
-  console.error('Error loading study sets:', error.message || error)
-}
+// Note: Removed top-level await statements to fix Vite build compatibility
+// Data loading is handled by the main application initialization
