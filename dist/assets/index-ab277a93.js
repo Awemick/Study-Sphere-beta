@@ -8604,7 +8604,50 @@ const paymentService = {
       throw error; // Re-throw the specific error
     }
   },
-  
+
+  async initializePaymentSupabase(email, amount, metadata = {}) {
+    // Validate inputs
+    if (!email || !amount || amount <= 0) {
+      throw new Error('Invalid payment parameters');
+    }
+
+    try {
+      // Get authentication token
+      const { data: { session } } = await supabase.auth.getSession();
+      const accessToken = session?.access_token || null;
+
+      const FUNCTION_URL = 'https://pklaygtgyryexuyykvtf.supabase.co/functions/v1/index-ts';
+
+      const payload = {
+        amount: Math.round(amount * 100), // Convert dollars to cents
+        currency: 'usd',
+        email,
+        metadata
+      };
+
+      const res = await fetch(FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(accessToken && { 'Authorization': `Bearer ${accessToken}` })
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(`Supabase function error: ${data.message || 'Unknown error'}`);
+      }
+
+      console.log('Supabase payment initialization response:', data);
+      return data;
+    } catch (error) {
+      console.error('Supabase payment initialization error:', error);
+      throw error;
+    }
+  },
+
   async verifyPayment(reference) {
     try {
       const response = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
