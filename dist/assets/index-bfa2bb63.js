@@ -9016,16 +9016,14 @@ function setupEventListeners() {
 
       if (setError) throw setError;
 
-      // Then save flashcards to the study set
-      const flashcardsWithSetId = flashcards.map(card => ({
-        study_set_id: studySet.id,
-        question: card.question,
-        answer: card.answer
-      }));
-
+      // Then save flashcards to the study set using the API
       const { error: cardsError } = await supabase
         .from('flashcards')
-        .insert(flashcardsWithSetId);
+        .insert(flashcards.map(card => ({
+          study_set_id: studySet.id,
+          question: card.question,
+          answer: card.answer
+        })));
 
       if (cardsError) throw cardsError;
 
@@ -9205,14 +9203,14 @@ async function generateFlashcardsAI(text) {
       throw new Error('Authentication required for AI generation');
     }
 
-    const response = await fetch('https://pklaygtgyryexuyykvtf.supabase.co/functions/v1/generate-flashcards', {
+    const response = await fetch('https://pklaygtgyryexuyykvtf.supabase.co/functions/v1/huggingface-test', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${accessToken}`
       },
       body: JSON.stringify({
-        text: text.substring(0, 1000)
+        inputs: `Generate 5 multiple-choice flashcards from the following text. Format as JSON: [{"question": "...", "options": ["A", "B", "C", "D"], "answer": "A"}]. Text: ${text.substring(0, 1000)}`
       })
     });
 
