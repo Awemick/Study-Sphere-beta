@@ -62,18 +62,24 @@ export const flashcardAPI = {
       .select('*')
       .eq('study_set_id', studySetId)
       .order('created_at', { ascending: true })
-    
+
     if (error) throw error
     return data
   },
 
-  // Create multiple flashcards
-  async createFlashcards(cards) {
+  // Create multiple flashcards for a study set
+  async createFlashcards(studySetId, cards) {
+    const flashcardsWithSetId = cards.map(card => ({
+      study_set_id: studySetId,
+      question: card.question,
+      answer: card.answer
+    }))
+
     const { data, error } = await supabase
       .from('flashcards')
-      .insert(cards)
+      .insert(flashcardsWithSetId)
       .select()
-    
+
     if (error) throw error
     return data
   },
@@ -85,7 +91,7 @@ export const flashcardAPI = {
       .update(updates)
       .eq('id', id)
       .select()
-    
+
     if (error) throw error
     return data[0]
   },
@@ -96,7 +102,7 @@ export const flashcardAPI = {
       .from('flashcards')
       .delete()
       .eq('id', id)
-    
+
     if (error) throw error
   }
 }
