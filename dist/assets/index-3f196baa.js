@@ -8726,7 +8726,6 @@ const ocrService = {
 };
 
 // script.js - Main application file with all integrations
-const HUGGING_FACE_API_KEY = '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';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -9198,30 +9197,48 @@ async function handleGenerateFlashcards() {
 
 async function generateFlashcardsAI(text) {
   try {
-    const response = await fetch(
-      'https://api-inference.huggingface.co/models/google/flan-t5-large',
-      {
-        headers: { Authorization: `Bearer ${HUGGING_FACE_API_KEY}` },
-        method: 'POST',
-        body: JSON.stringify({
-          inputs: `Generate 5 multiple-choice flashcards from the following text. Format as JSON: [{"question": "...", "options": ["A", "B", "C", "D"], "answer": "A"}]. Text: ${text.substring(0, 1000)}`
-        }),
-      }
-    );
-    const result = await response.json();
-    console.log('Hugging Face API result:', result); // Add this line
+    // Get authentication token
+    const { data: { session } } = await supabase.auth.getSession();
+    const accessToken = session?.access_token;
 
-    if (result.error) throw new Error(result.error);
+    if (!accessToken) {
+      throw new Error('Authentication required for AI generation');
+    }
+
+    const response = await fetch('https://pklaygtgyryexuyykvtf.supabase.co/functions/v1/generate-flashcards', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${accessToken}`
+      },
+      body: JSON.stringify({
+        text: text.substring(0, 1000)
+      })
+    });
+
+    const result = await response.json();
+    console.log('Supabase AI API result:', result);
+
+    if (!response.ok) {
+      throw new Error(result.error || 'AI generation failed');
+    }
+
+    if (result.error) {
+      throw new Error(result.error);
+    }
 
     // Extract JSON from response
-    const jsonMatch = result[0].generated_text.match(/\[.*\]/s);
-    if (jsonMatch) {
-      return JSON.parse(jsonMatch[0]);
+    if (result[0] && result[0].generated_text) {
+      const jsonMatch = result[0].generated_text.match(/\[.*\]/s);
+      if (jsonMatch) {
+        return JSON.parse(jsonMatch[0]);
+      }
     }
+
     // Fallback to simple generation
     return generateSimpleMCFlashcards(text);
   } catch (error) {
-    console.error('Hugging Face API Error:', error);
+    console.error('AI generation error:', error);
     return generateSimpleMCFlashcards(text);
   }
 }
