@@ -275,18 +275,44 @@ function setupEventListeners() {
       alert('No flashcards to save.');
       return;
     }
-    // Save to Supabase (adjust table/fields as needed)
-    const { error } = await supabase
-      .from('flashcards')
-      .insert(flashcards.map(card => ({
+
+    try {
+      // First create a study set
+      const studySetTitle = prompt('Enter a name for your study set:', 'My Flashcards');
+      if (!studySetTitle) return;
+
+      const studySetData = {
         user_id: user.id,
+        title: studySetTitle,
+        subject: 'Generated Flashcards',
+        description: `Auto-generated flashcards from text (${flashcards.length} cards)`
+      };
+
+      const { data: studySet, error: setError } = await supabase
+        .from('study_sets')
+        .insert([studySetData])
+        .select()
+        .single();
+
+      if (setError) throw setError;
+
+      // Then save flashcards to the study set
+      const flashcardsWithSetId = flashcards.map(card => ({
+        study_set_id: studySet.id,
         question: card.question,
         answer: card.answer
-      })));
-    if (error) {
-      alert('Error saving flashcards.');
-    } else {
+      }));
+
+      const { error: cardsError } = await supabase
+        .from('flashcards')
+        .insert(flashcardsWithSetId);
+
+      if (cardsError) throw cardsError;
+
       alert('Flashcards saved to your library!');
+    } catch (error) {
+      console.error('Error saving flashcards:', error);
+      alert('Error saving flashcards. Please try again.');
     }
   });
 }
@@ -728,4 +754,3 @@ function updateUIForAuthenticatedUser() {
   document.getElementById('authBtn').textContent = 'Sign Out';
   // You can show tabs or sections if needed
 }
-
