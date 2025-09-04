@@ -8619,10 +8619,10 @@ const paymentService = {
       const FUNCTION_URL = 'https://pklaygtgyryexuyykvtf.supabase.co/functions/v1/index-ts';
 
       const payload = {
-        amount: Math.round(amount * 100), // Convert dollars to cents
-        currency: 'usd',
         email,
-        metadata
+        amount, // Send in dollars as expected by the function
+        metadata,
+        callback_url: `${window.location.origin}/payment-verification.html`
       };
 
       const res = await fetch(FUNCTION_URL, {
@@ -8641,7 +8641,11 @@ const paymentService = {
       }
 
       console.log('Supabase payment initialization response:', data);
-      return data;
+
+      // Return in the same format as Paystack for compatibility
+      return {
+        authorization_url: data.authorization_url
+      };
     } catch (error) {
       console.error('Supabase payment initialization error:', error);
       throw error;
@@ -8676,9 +8680,9 @@ const paymentService = {
       if (!user) throw new Error('User not authenticated');
       
       const amount = planType === 'monthly' ? 900 : 1900; // $9 or $19
-      const paymentData = await this.initializePayment(
-        user.email, 
-        amount, 
+      const paymentData = await this.initializePaymentSupabase(
+        user.email,
+        amount,
         { userId, planType }
       );
       
