@@ -24,7 +24,7 @@ export const paymentService = {
           email,
           amount: amount * 100, // Convert to kobo
           metadata,
-          callback_url: `${window.location.origin}/payment-verification.html`
+          callback_url: `${window.location.origin}/?payment=verify`
         })
       });
 
@@ -70,7 +70,7 @@ export const paymentService = {
         email,
         amount, // Send in dollars as expected by the function
         metadata,
-        callback_url: `${window.location.origin}/payment-verification.html`
+        callback_url: `${window.location.origin}/?payment=verify`
       };
 
       const res = await fetch(FUNCTION_URL, {
@@ -85,7 +85,12 @@ export const paymentService = {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(`Supabase function error: ${data.message || 'Unknown error'}`);
+        console.error('Supabase function failed:', {
+          status: res.status,
+          statusText: res.statusText,
+          responseData: data
+        });
+        throw new Error(`Supabase function error: ${data.error || data.message || 'Unknown error'}`);
       }
 
       console.log('Supabase payment initialization response:', data);
