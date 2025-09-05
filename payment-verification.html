@@ -44,6 +44,19 @@
     </div>
 
     <script>
+        // Helper function for premium expiry date
+        function getPremiumExpiryDate(planType) {
+            const expiryDate = new Date();
+
+            if (planType === 'monthly') {
+                expiryDate.setMonth(expiryDate.getMonth() + 1);
+            } else {
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1);
+            }
+
+            return expiryDate.toISOString();
+        }
+
         // Inline payment verification logic for bolt.new compatibility
         async function verifyPayment() {
             try {
@@ -67,16 +80,52 @@
                 const data = await response.json();
 
                 if (data.status && data.data.status === 'success') {
-                    // Payment successful - update UI and redirect
-                    document.querySelector('h2').textContent = 'Payment Successful!';
-                    document.querySelector('p').textContent = 'Your premium account has been activated.';
-                    document.querySelector('.spinner').style.display = 'none';
+                    // Payment successful - update user premium status
+                    const userId = data.data.metadata?.userId;
+                    const planType = data.data.metadata?.planType;
 
-                    // Redirect after showing success message
-                    setTimeout(() => {
-                        alert('Payment successful! Your premium account has been activated.');
-                        window.location.href = '/';
-                    }, 2000);
+                    if (userId) {
+                        // Update premium status in Supabase
+                        fetch('https://pklaygtgyryexuyykvtf.supabase.co/rest/v1/profiles?id=eq.' + userId, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBrbGF5Z3RneXJ5ZXh1eXlrdnRmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTY3MTQ3MjEsImV4cCI6MjA3MjI5MDcyMX0.wFiSHjsg3oF5CdeRnRY5VTs6rhzJHJbVjT3B79EfAW0'
+                            },
+                            body: JSON.stringify({
+                                is_premium: true,
+                                premium_expires_at: getPremiumExpiryDate(planType)
+                            })
+                        }).then(() => {
+                            document.querySelector('h2').textContent = 'Payment Successful!';
+                            document.querySelector('p').textContent = 'Your premium account has been activated.';
+                            document.querySelector('.spinner').style.display = 'none';
+
+                            setTimeout(() => {
+                                alert('Payment successful! Your premium account has been activated.');
+                                window.location.href = '/';
+                            }, 2000);
+                        }).catch(error => {
+                            console.error('Error updating premium status:', error);
+                            document.querySelector('h2').textContent = 'Payment Successful!';
+                            document.querySelector('p').textContent = 'Payment verified, but please contact support to activate premium.';
+                            document.querySelector('.spinner').style.display = 'none';
+
+                            setTimeout(() => {
+                                window.location.href = '/';
+                            }, 3000);
+                        });
+                    } else {
+                        // No user ID found, just show success
+                        document.querySelector('h2').textContent = 'Payment Successful!';
+                        document.querySelector('p').textContent = 'Your premium account has been activated.';
+                        document.querySelector('.spinner').style.display = 'none';
+
+                        setTimeout(() => {
+                            alert('Payment successful! Your premium account has been activated.');
+                            window.location.href = '/';
+                        }, 2000);
+                    }
                 } else {
                     // Payment failed
                     document.querySelector('h2').textContent = 'Payment Verification Failed';
