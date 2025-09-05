@@ -9208,7 +9208,7 @@ async function generateFlashcardsAI(text) {
       throw new Error('Authentication required for AI generation');
     }
 
-    const response = await fetch('https://pklaygtgyryexuyykvtf.supabase.co/functions/v1/huggingface-test', {
+    const response = await fetch('https://pklaygtgyryexuyykvtf.supabase.co/functions/v1/HUGGING_FACE_API_KEY', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
