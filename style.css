@@ -1599,10 +1599,15 @@ body {
     /* Mobile header adjustments */
     .header-container {
         padding: 0 var(--spacing-sm);
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+        justify-content: space-between;
     }
 
     .logo {
         font-size: 1.2rem;
+        order: 1;
+        flex-shrink: 0;
     }
 
     .logo-icon {
@@ -1611,9 +1616,32 @@ body {
         font-size: 0.9rem;
     }
 
+    /* Mobile header actions */
+    .header-actions {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: var(--spacing-sm);
+    }
+
     /* Mobile stats display */
     .stats-display {
-        display: none; /* Hide on mobile to save space */
+        order: 2;
+        flex: 1;
+        justify-content: center;
+        margin: 0 var(--spacing-sm);
+    }
+
+    /* Mobile theme toggle */
+    .theme-toggle {
+        order: 1;
+    }
+
+    /* Mobile auth button */
+    .auth-btn {
+        order: 2;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.9rem;
     }
 
     /* Mobile tab content */
@@ -1659,11 +1687,44 @@ body {
     #flashcardsGrid {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
+        padding: 0 var(--spacing-sm);
     }
 
     .flashcard {
         width: 100%;
         max-width: none;
+        margin: 0 auto;
+    }
+
+    /* Mobile container adjustments */
+    .container {
+        padding: 0 var(--spacing-sm);
+        max-width: 100%;
+    }
+
+    /* Mobile input adjustments */
+    .notes-input {
+        font-size: 16px; /* Prevent zoom on iOS */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Mobile button adjustments */
+    .generate-button {
+        width: 100%;
+        padding: var(--spacing-md);
+        font-size: 1rem;
+    }
+
+    /* Mobile method cards */
+    .method-card {
+        margin-bottom: var(--spacing-md);
+    }
+
+    /* Mobile upload areas */
+    .upload-area, .image-upload {
+        min-height: 120px;
+        padding: var(--spacing-md);
     }
 
     /* Mobile study modal */
@@ -1684,6 +1745,46 @@ body {
         width: 100%;
         max-width: 200px;
         margin: 0 auto;
+    }
+
+    /* Mobile recording UI */
+    .record-btn {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .recording-status {
+        text-align: center;
+        margin: var(--spacing-md) 0;
+    }
+
+    .recording-indicator {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .voice-actions {
+        text-align: center;
+    }
+
+    .voice-actions button {
+        width: 100%;
+        max-width: 200px;
+        margin: var(--spacing-sm) auto;
+        display: block;
+    }
+
+    /* Mobile transcript area */
+    .recording-transcript {
+        margin: var(--spacing-md) 0;
+        padding: var(--spacing-md);
+    }
+
+    .recording-transcript p {
+        min-height: 60px;
+        line-height: 1.4;
     }
 }
 
