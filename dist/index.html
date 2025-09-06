@@ -3,6 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-powered flashcard generator with spaced repetition learning">
+    <meta name="theme-color" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="StudySphere AI">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlN0dWR5U3BoZXJlIEFJIiwKICAic2hvcnRfbmFtZSI6ICJTdHVkeVNwaGVyZSIsCiAgImRlc2NyaXB0aW9uIjogIkFJLXBvd2VyZWQgZmxhc2hjYXJkIGdlbmVyYXRvciB3aXRoIHNwYWNlZCByZXBldGl0aW9uIGxlYXJuaW5nIiwKICAic3RhcnRfdXJsIjogIi4vIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjZmZmZmZmIiwKICAidGhlbWVfY29sb3IiOiAiIzYzNjZmMSIsCiAgIm9yaWVudGF0aW9uIjogInBvcnRyYWl0LXByaW1hcnkiLAogICJjYXRlZ29yaWVzIjogWyJlZHVjYXRpb24iLCAicHJvZHVjdGl2aXR5Il0sCiAgImxhbmciOiAiZW4tVVMiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWwsPHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxOTIgMTkyJz48cmVjdCB3aWR0aD0nMTkyJyBoZWlnaHQ9JzE5MicgZmlsbD0nJTIzNjM2NmYxJyByeD0nMjQnLz48dGV4dCB4PSc5NicgeT0nMTIwJyBmb250LWZhbWlseT0nQXJpYWwsIHNhbnMtc2VyaWYnIGZvbnQtc2l6ZT0nMTIwJyBmb250LXdlaWdodD0nYm9sZCcgdGV4dC1hbmNob3I9J21pZGRsZScgZmlsbD0nd2hpdGUnPlM8L3RleHQ+PC9zdmc+IiwKICAgICAgInNpemVzIjogIjE5MngxOTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIiwKICAgICAgInB1cnBvc2UiOiAiYW55IG1hc2thYmxlIgogICAgfQogIF0KfQ==">
+    <link rel="apple-touch-icon" href="/icon-192.png">
     <title>StudySphere AI | Smart Adaptive Flashcards</title>
     
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
@@ -13,8 +20,8 @@
 
     <!-- Mammoth.js for DOCX text extraction -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
-  <script type="module" crossorigin src="/assets/index-7ebe748a.js"></script>
-  <link rel="stylesheet" href="/assets/index-8a23f62f.css">
+  <script type="module" crossorigin src="/assets/index-23ce6692.js"></script>
+  <link rel="stylesheet" href="/assets/index-c94c93f7.css">
 </head>
 <body>
     <header class="header">
@@ -48,6 +55,19 @@
                 </a>
             </nav>
             <div class="header-actions">
+                <div class="stats-display">
+                    <div class="stat-item">
+                        <i class="ri-star-line"></i>
+                        <span id="pointsDisplay">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="ri-fire-line"></i>
+                        <span id="streakDisplay">0</span>
+                    </div>
+                </div>
+                <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">
+                    <i class="ri-moon-line"></i>
+                </button>
                 <button id="authBtn" class="auth-btn">
                     <i class="ri-user-line"></i>
                     Sign In
