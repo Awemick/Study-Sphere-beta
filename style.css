@@ -452,14 +452,9 @@ body {
     flex-direction: column;
     align-items: center;
     gap: var(--spacing-xs);
-    background: var(--color-background);
-    padding: var(--spacing-md);
-    border-radius: var(--border-radius);
     font-size: 1.1rem;
     font-weight: 700;
     color: var(--color-text);
-    box-shadow: var(--shadow-sm);
-    border: 1px solid var(--color-border);
     min-width: 100px;
 }
 
@@ -913,7 +908,8 @@ body {
     font-size: 1rem;
     resize: vertical;
     transition: all 0.2s ease;
-    background: var(--color-background-alt);
+    background: var(--color-background);
+    color: var(--color-text);
 }
 
 .notes-input:focus {
@@ -921,6 +917,10 @@ body {
     border-color: var(--color-primary);
     background: var(--color-background);
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.notes-input::placeholder {
+    color: var(--color-text-light);
 }
 
 .method-tips {
@@ -1347,29 +1347,31 @@ body {
 
 /* Individual flashcard */
 .flashcard {
-  background: #fff;
+  background: var(--color-background);
   border-radius: 16px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  box-shadow: var(--shadow-sm);
   padding: 1.5rem;
   width: 320px;
   transition: box-shadow 0.2s;
   position: relative;
+  border: 1px solid var(--color-border);
 }
 
 .flashcard:hover {
-  box-shadow: 0 8px 32px rgba(99,102,241,0.15);
+  box-shadow: var(--shadow-md);
 }
 
 /* Flashcard content */
 .flashcard-content h4 {
   margin-bottom: 0.5rem;
-  color: #6366f1;
+  color: var(--color-primary);
   font-weight: 700;
 }
 
 .flashcard-content p {
   margin-bottom: 1rem;
   font-size: 1.1rem;
+  color: var(--color-text);
 }
 
 /* Options */
@@ -1381,42 +1383,47 @@ body {
 }
 
 .option-btn {
-  background: #f3f4f6;
-  border: none;
+  background: var(--color-background-alt);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   padding: 0.75rem 1rem;
   font-size: 1rem;
   cursor: pointer;
   transition: background 0.2s, color 0.2s;
   text-align: left;
+  color: var(--color-text);
 }
 
 .option-btn:hover {
-  background: #e0e7ff;
-  color: #3730a3;
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
 }
 
 .option-btn.correct {
-  background: #bbf7d0;
-  color: #166534;
+  background: #10b981;
+  color: white;
   font-weight: 600;
+  border-color: #10b981;
 }
 
 .option-btn.incorrect {
-  background: #fee2e2;
-  color: #991b1b;
+  background: #ef4444;
+  color: white;
   font-weight: 600;
+  border-color: #ef4444;
 }
 
 /* Correct answer reveal */
 .answer {
-  background: #f1f5f9;
+  background: var(--color-background-alt);
   border-radius: 6px;
   padding: 0.5rem;
-  color: #0f172a;
+  color: var(--color-text);
   font-size: 0.95rem;
   margin-top: 0.5rem;
   font-weight: 500;
+  border: 1px solid var(--color-border);
 }
 
 /* Utility Classes */
