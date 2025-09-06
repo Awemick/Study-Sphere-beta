@@ -42,6 +42,11 @@
     --color-primary-light: #c7d2fe;
     --color-secondary: #34d399;
     --color-secondary-dark: #10b981;
+    --color-accent: #fbbf24;
+    --color-accent-dark: #f59e0b;
+    --color-success: #34d399;
+    --color-warning: #fbbf24;
+    --color-error: #ef4444;
     --color-text: #f9fafb;
     --color-text-light: #d1d5db;
     --color-text-lighter: #9ca3af;
@@ -52,6 +57,28 @@
     --color-border-light: #4b5563;
     --color-card-shadow: rgba(0, 0, 0, 0.3);
     --color-card-shadow-hover: rgba(0, 0, 0, 0.4);
+}
+
+/* Ensure all text elements use CSS variables for proper theme switching */
+body {
+    color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--color-text);
+}
+
+p, span, div {
+    color: var(--color-text);
+}
+
+/* Specific text color overrides for better contrast */
+.text-light {
+    color: var(--color-text-light) !important;
+}
+
+.text-lighter {
+    color: var(--color-text-lighter) !important;
 }
 
 * {
@@ -195,7 +222,7 @@ body {
     align-items: center;
     justify-content: center;
     transition: all 0.2s ease;
-    margin-right: var(--spacing-sm);
+    color: var(--color-text);
 }
 
 .theme-toggle:hover {
@@ -209,8 +236,21 @@ body {
     font-size: 1.1rem;
 }
 
-[data-theme="dark"] .theme-toggle i::before {
-    content: "\eb9d"; /* sun icon */
+/* Theme toggle icon changes */
+.theme-toggle i.ri-moon-line {
+    display: inline;
+}
+
+.theme-toggle i.ri-sun-line {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle i.ri-moon-line {
+    display: none;
+}
+
+[data-theme="dark"] .theme-toggle i.ri-sun-line {
+    display: inline;
 }
 
 /* Study Modal Styles */
@@ -416,26 +456,39 @@ body {
 /* Stats Display */
 .stats-display {
     display: flex;
-    gap: var(--spacing-md);
+    gap: var(--spacing-lg);
     align-items: center;
-    margin-right: var(--spacing-md);
+    justify-content: center;
+    margin: var(--spacing-lg) 0;
 }
 
 .stat-item {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: var(--spacing-xs);
-    background: var(--color-background-alt);
-    padding: var(--spacing-xs) var(--spacing-sm);
-    border-radius: var(--border-radius-sm);
-    font-size: 0.9rem;
-    font-weight: 600;
+    background: var(--color-background);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 700;
     color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+    min-width: 100px;
 }
 
 .stat-item i {
     color: var(--color-primary);
-    font-size: 1rem;
+    font-size: 1.5rem;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 /* Points Notification */
@@ -1599,10 +1652,15 @@ body {
     /* Mobile header adjustments */
     .header-container {
         padding: 0 var(--spacing-sm);
+        flex-wrap: wrap;
+        gap: var(--spacing-sm);
+        justify-content: space-between;
     }
 
     .logo {
         font-size: 1.2rem;
+        order: 1;
+        flex-shrink: 0;
     }
 
     .logo-icon {
@@ -1611,9 +1669,33 @@ body {
         font-size: 0.9rem;
     }
 
+    /* Mobile header actions */
+    .header-actions {
+        order: 3;
+        width: 100%;
+        justify-content: flex-end;
+        margin-top: var(--spacing-sm);
+        gap: var(--spacing-sm);
+    }
+
     /* Mobile stats display */
     .stats-display {
-        display: none; /* Hide on mobile to save space */
+        order: 2;
+        display: flex;
+        gap: var(--spacing-sm);
+        align-items: center;
+    }
+
+    /* Mobile theme toggle */
+    .theme-toggle {
+        order: 1;
+    }
+
+    /* Mobile auth button */
+    .auth-btn {
+        order: 2;
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.9rem;
     }
 
     /* Mobile tab content */
@@ -1659,11 +1741,44 @@ body {
     #flashcardsGrid {
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
+        padding: 0 var(--spacing-sm);
     }
 
     .flashcard {
         width: 100%;
         max-width: none;
+        margin: 0 auto;
+    }
+
+    /* Mobile container adjustments */
+    .container {
+        padding: 0 var(--spacing-sm);
+        max-width: 100%;
+    }
+
+    /* Mobile input adjustments */
+    .notes-input {
+        font-size: 16px; /* Prevent zoom on iOS */
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Mobile button adjustments */
+    .generate-button {
+        width: 100%;
+        padding: var(--spacing-md);
+        font-size: 1rem;
+    }
+
+    /* Mobile method cards */
+    .method-card {
+        margin-bottom: var(--spacing-md);
+    }
+
+    /* Mobile upload areas */
+    .upload-area, .image-upload {
+        min-height: 120px;
+        padding: var(--spacing-md);
     }
 
     /* Mobile study modal */
@@ -1684,6 +1799,46 @@ body {
         width: 100%;
         max-width: 200px;
         margin: 0 auto;
+    }
+
+    /* Mobile recording UI */
+    .record-btn {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .recording-status {
+        text-align: center;
+        margin: var(--spacing-md) 0;
+    }
+
+    .recording-indicator {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .voice-actions {
+        text-align: center;
+    }
+
+    .voice-actions button {
+        width: 100%;
+        max-width: 200px;
+        margin: var(--spacing-sm) auto;
+        display: block;
+    }
+
+    /* Mobile transcript area */
+    .recording-transcript {
+        margin: var(--spacing-md) 0;
+        padding: var(--spacing-md);
+    }
+
+    .recording-transcript p {
+        min-height: 60px;
+        line-height: 1.4;
     }
 }
 

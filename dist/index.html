@@ -20,8 +20,8 @@
 
     <!-- Mammoth.js for DOCX text extraction -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.2/mammoth.browser.min.js"></script>
-  <script type="module" crossorigin src="/assets/index-23ce6692.js"></script>
-  <link rel="stylesheet" href="/assets/index-c94c93f7.css">
+  <script type="module" crossorigin src="/assets/index-f9be5282.js"></script>
+  <link rel="stylesheet" href="/assets/index-3cd6a8f8.css">
 </head>
 <body>
     <header class="header">
@@ -55,18 +55,9 @@
                 </a>
             </nav>
             <div class="header-actions">
-                <div class="stats-display">
-                    <div class="stat-item">
-                        <i class="ri-star-line"></i>
-                        <span id="pointsDisplay">0</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="ri-fire-line"></i>
-                        <span id="streakDisplay">0</span>
-                    </div>
-                </div>
                 <button id="themeToggle" class="theme-toggle" title="Toggle Dark Mode">
                     <i class="ri-moon-line"></i>
+                    <i class="ri-sun-line"></i>
                 </button>
                 <button id="authBtn" class="auth-btn">
                     <i class="ri-user-line"></i>
@@ -334,6 +325,22 @@
                     <div class="section-header">
                         <h2>Your Study Sets</h2>
                         <p class="subtitle">Review and manage your flashcards</p>
+                    </div>
+
+                    <!-- User Stats Display -->
+                    <div class="user-stats-section">
+                        <div class="stats-display">
+                            <div class="stat-item">
+                                <i class="ri-star-line"></i>
+                                <span id="pointsDisplay">0</span>
+                                <span class="stat-label">Points</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="ri-fire-line"></i>
+                                <span id="streakDisplay">0</span>
+                                <span class="stat-label">Day Streak</span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Study Sets List -->
