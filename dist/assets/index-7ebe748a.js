@@ -8731,7 +8731,7 @@ const ocrService = {
 };
 
 // script.js - Main application file with all integrations
-const HUGGING_FACE_API_KEY = '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';
+const HUGGING_FACE_API_KEY = 'YOUR_VALID_HUGGING_FACE_API_KEY_HERE';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -8803,6 +8803,15 @@ async function initializeApp() {
   const paymentAction = urlParams.get('payment');
   const reference = urlParams.get('reference');
 
+  // Debug: Log all URL parameters for payment troubleshooting
+  if (paymentAction || reference) {
+    console.log('Payment callback detected:');
+    console.log('Full URL:', window.location.href);
+    console.log('All URL params:', Object.fromEntries(urlParams.entries()));
+    console.log('Payment action:', paymentAction);
+    console.log('Reference:', reference);
+  }
+
   if (paymentAction === 'verify' && reference) {
     // Show payment verification UI
     document.querySelector('main').style.display = 'none';
@@ -8810,16 +8819,45 @@ async function initializeApp() {
 
     // Process payment verification
     try {
+      console.log('Verifying payment with reference:', reference);
       const data = await paymentService.verifyPayment(reference);
+      console.log('Payment verification response:', data);
+
       if (data.status === 'success') {
-        // Update user premium status in Supabase
-        const userId = data.metadata.userId;
+        // Get userId from metadata or try to get from current session
+        let userId = data.metadata?.userId;
+        let planType = data.metadata?.planType || 'monthly';
+
+        console.log('Payment metadata:', data.metadata);
+
+        // If no userId in metadata, try to get from current session
+        if (!userId) {
+          const { data: { user } } = await supabase.auth.getUser();
+          if (user) {
+            userId = user.id;
+            console.log('Using userId from session:', userId);
+          } else {
+            console.error('No userId found in metadata or session');
+            alert('Payment verified but could not identify user. Please contact support.');
+            return;
+          }
+        }
+
+        console.log('Updating premium status for user:', userId, 'plan:', planType);
+
+        // Ensure we have a valid session before updating
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+          console.error('No valid session for database update');
+          alert('Session expired. Please sign in again and contact support.');
+          return;
+        }
 
         const { error } = await supabase
           .from('profiles')
           .update({
             is_premium: true,
-            premium_expires_at: getPremiumExpiryDate(data.metadata.planType)
+            premium_expires_at: getPremiumExpiryDate(planType)
           })
           .eq('id', userId);
 
@@ -8827,14 +8865,67 @@ async function initializeApp() {
           console.error('Error updating premium status:', error);
           alert('Payment verified but there was an error activating your premium account. Please contact support.');
         } else {
+          console.log('Premium status updated successfully');
           alert('Payment successful! Your premium account has been activated.');
           // Redirect to clean URL after successful verification
           window.location.href = '/';
         }
+      } else {
+        console.error('Payment verification failed - status not success:', data);
+        alert('Payment verification failed. Please contact support if you were charged.');
       }
     } catch (error) {
       console.error('Payment verification failed:', error);
-      alert('Payment verification failed. Please contact support.');
+
+      // Fallback: Try to verify payment status by checking with Paystack directly
+      try {
+        console.log('Attempting fallback verification...');
+        const fallbackResponse = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+          headers: {
+            'Authorization': `Bearer pk_test_cb64b5939626d35004e38687f833c332bcaa4051`
+          }
+        });
+
+        if (fallbackResponse.ok) {
+          const fallbackData = await fallbackResponse.json();
+          console.log('Fallback verification response:', fallbackData);
+
+          if (fallbackData.status && fallbackData.data?.status === 'success') {
+            console.log('Fallback verification successful');
+            // Try to update premium status with fallback data
+            let userId = fallbackData.data.metadata?.userId;
+            let planType = fallbackData.data.metadata?.planType || 'monthly';
+
+            if (!userId) {
+              const { data: { user } } = await supabase.auth.getUser();
+              userId = user?.id;
+            }
+
+            if (userId) {
+              const { data: { session } } = await supabase.auth.getSession();
+              if (session) {
+                const { error } = await supabase
+                  .from('profiles')
+                  .update({
+                    is_premium: true,
+                    premium_expires_at: getPremiumExpiryDate(planType)
+                  })
+                  .eq('id', userId);
+
+                if (!error) {
+                  alert('Payment successful! Your premium account has been activated.');
+                  window.location.href = '/';
+                  return;
+                }
+              }
+            }
+          }
+        }
+      } catch (fallbackError) {
+        console.error('Fallback verification also failed:', fallbackError);
+      }
+
+      alert('Payment verification failed. Please contact support if you were charged.');
     }
     return; // Exit early if handling payment verification
   }
@@ -8851,29 +8942,112 @@ async function initializeApp() {
 
       // Process payment verification
       try {
+        console.log('Legacy verification - reference:', reference);
         const data = await paymentService.verifyPayment(reference);
+        console.log('Legacy verification response:', data);
+
         if (data.status === 'success') {
-          const userId = data.metadata.userId;
+          // Get userId from metadata or try to get from current session
+          let userId = data.metadata?.userId;
+          let planType = data.metadata?.planType || 'monthly';
+
+          console.log('Legacy payment metadata:', data.metadata);
+
+          // If no userId in metadata, try to get from current session
+          if (!userId) {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+              userId = user.id;
+              console.log('Legacy: Using userId from session:', userId);
+            } else {
+              console.error('Legacy: No userId found in metadata or session');
+              alert('Payment verified but could not identify user. Please contact support.');
+              return;
+            }
+          }
+
+          console.log('Legacy: Updating premium status for user:', userId, 'plan:', planType);
+
+          // Ensure we have a valid session before updating
+          const { data: { session } } = await supabase.auth.getSession();
+          if (!session) {
+            console.error('Legacy: No valid session for database update');
+            alert('Session expired. Please sign in again and contact support.');
+            return;
+          }
 
           const { error } = await supabase
             .from('profiles')
             .update({
               is_premium: true,
-              premium_expires_at: getPremiumExpiryDate(data.metadata.planType)
+              premium_expires_at: getPremiumExpiryDate(planType)
             })
             .eq('id', userId);
 
           if (error) {
-            console.error('Error updating premium status:', error);
+            console.error('Legacy: Error updating premium status:', error);
             alert('Payment verified but there was an error activating your premium account. Please contact support.');
           } else {
+            console.log('Legacy: Premium status updated successfully');
             alert('Payment successful! Your premium account has been activated.');
             window.location.href = '/';
           }
+        } else {
+          console.error('Legacy: Payment verification failed - status not success:', data);
+          alert('Payment verification failed. Please contact support if you were charged.');
         }
       } catch (error) {
-        console.error('Payment verification failed:', error);
-        alert('Payment verification failed. Please contact support.');
+        console.error('Legacy: Payment verification failed:', error);
+
+        // Fallback: Try to verify payment status by checking with Paystack directly
+        try {
+          console.log('Legacy: Attempting fallback verification...');
+          const fallbackResponse = await fetch(`https://api.paystack.co/transaction/verify/${reference}`, {
+            headers: {
+              'Authorization': `Bearer pk_test_cb64b5939626d35004e38687f833c332bcaa4051`
+            }
+          });
+
+          if (fallbackResponse.ok) {
+            const fallbackData = await fallbackResponse.json();
+            console.log('Legacy: Fallback verification response:', fallbackData);
+
+            if (fallbackData.status && fallbackData.data?.status === 'success') {
+              console.log('Legacy: Fallback verification successful');
+              // Try to update premium status with fallback data
+              let userId = fallbackData.data.metadata?.userId;
+              let planType = fallbackData.data.metadata?.planType || 'monthly';
+
+              if (!userId) {
+                const { data: { user } } = await supabase.auth.getUser();
+                userId = user?.id;
+              }
+
+              if (userId) {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session) {
+                  const { error } = await supabase
+                    .from('profiles')
+                    .update({
+                      is_premium: true,
+                      premium_expires_at: getPremiumExpiryDate(planType)
+                    })
+                    .eq('id', userId);
+
+                  if (!error) {
+                    alert('Payment successful! Your premium account has been activated.');
+                    window.location.href = '/';
+                    return;
+                  }
+                }
+              }
+            }
+          }
+        } catch (fallbackError) {
+          console.error('Legacy: Fallback verification also failed:', fallbackError);
+        }
+
+        alert('Payment verification failed. Please contact support if you were charged.');
       }
     }
     return;
@@ -8905,6 +9079,13 @@ async function initializeApp() {
 }
 
 function setupEventListeners() {
+  // Initialize hero visibility for default active tab
+  const heroSection = document.querySelector('.hero');
+  const activeTab = document.querySelector('.nav-link.active');
+  if (heroSection && activeTab && activeTab.dataset.tab !== 'generate') {
+    heroSection.style.display = 'none';
+  }
+
   // Auth button
   document.getElementById('authBtn').addEventListener('click', handleAuthClick);
   
@@ -8999,6 +9180,15 @@ function setupEventListeners() {
       if (tabPane) tabPane.classList.add('active');
       tabLinks.forEach(l => l.classList.remove('active'));
       this.classList.add('active');
+      // Show/hide hero section based on active tab
+      const heroSection = document.querySelector('.hero');
+      if (heroSection) {
+        if (tabName === 'generate') {
+          heroSection.style.display = 'block';
+        } else {
+          heroSection.style.display = 'none';
+        }
+      }
       // Load data for each tab
       if (tabName === 'study') loadStudySets();
       if (tabName === 'library') loadLibrary();
