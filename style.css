@@ -35,6 +35,25 @@
     --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
 }
 
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --color-primary: #818cf8;
+    --color-primary-dark: #6366f1;
+    --color-primary-light: #c7d2fe;
+    --color-secondary: #34d399;
+    --color-secondary-dark: #10b981;
+    --color-text: #f9fafb;
+    --color-text-light: #d1d5db;
+    --color-text-lighter: #9ca3af;
+    --color-background: #111827;
+    --color-background-alt: #1f2937;
+    --color-background-dark: #374151;
+    --color-border: #374151;
+    --color-border-light: #4b5563;
+    --color-card-shadow: rgba(0, 0, 0, 0.3);
+    --color-card-shadow-hover: rgba(0, 0, 0, 0.4);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -160,6 +179,383 @@ body {
     background: var(--color-primary-dark);
     transform: translateY(-1px);
     box-shadow: var(--shadow-md);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+    padding: var(--spacing-sm);
+    background: var(--color-background-alt);
+    border: 2px solid var(--color-border);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    margin-right: var(--spacing-sm);
+}
+
+.theme-toggle:hover {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: white;
+    transform: translateY(-1px);
+}
+
+.theme-toggle i {
+    font-size: 1.1rem;
+}
+
+[data-theme="dark"] .theme-toggle i::before {
+    content: "\eb9d"; /* sun icon */
+}
+
+/* Study Modal Styles */
+.study-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.study-modal-content {
+    background: var(--color-background);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-xl);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: var(--shadow-xl);
+}
+
+.study-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: var(--spacing-md);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--color-text-light);
+}
+
+.flashcard-study {
+    text-align: center;
+}
+
+.question {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text);
+}
+
+.answer {
+    font-size: 1.1rem;
+    margin: var(--spacing-lg) 0;
+    color: var(--color-primary);
+    font-weight: 500;
+}
+
+.study-controls {
+    margin-top: var(--spacing-lg);
+}
+
+.show-answer-btn {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.show-answer-btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+.rating-buttons {
+    display: flex;
+    gap: var(--spacing-sm);
+    justify-content: center;
+    margin-top: var(--spacing-md);
+    flex-wrap: wrap;
+}
+
+.rating-btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: none;
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+}
+
+.rating-btn.again {
+    background: #ef4444;
+    color: white;
+}
+
+.rating-btn.hard {
+    background: #f59e0b;
+    color: white;
+}
+
+.rating-btn.good {
+    background: var(--color-primary);
+    color: white;
+}
+
+.rating-btn.easy {
+    background: var(--color-secondary);
+    color: white;
+}
+
+.rating-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.study-btn {
+    background: var(--color-secondary);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: var(--spacing-sm);
+    transition: all 0.2s ease;
+}
+
+.study-btn:hover {
+    background: var(--color-secondary-dark);
+    transform: translateY(-1px);
+}
+
+/* PWA Install Button */
+.install-btn {
+    background: var(--color-success);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: var(--spacing-sm);
+    transition: all 0.2s ease;
+    display: none; /* Hidden by default, shown when install prompt available */
+}
+
+.install-btn:hover {
+    background: var(--color-secondary-dark);
+    transform: translateY(-1px);
+}
+
+/* Update Notification */
+.update-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--color-primary);
+    color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    max-width: 300px;
+}
+
+.update-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.update-content button {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.update-content button:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.update-content button:first-of-type {
+    background: white;
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* Stats Display */
+.stats-display {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    margin-right: var(--spacing-md);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: var(--color-background-alt);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.stat-item i {
+    color: var(--color-primary);
+    font-size: 1rem;
+}
+
+/* Points Notification */
+.points-notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: var(--color-success);
+    color: white;
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-lg);
+    z-index: 1000;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    max-width: 250px;
+}
+
+.points-notification.show {
+    transform: translateX(0);
+}
+
+.points-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.points-amount {
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.points-reason {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Achievement Notification */
+.achievement-notification {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: white;
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-xl);
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.3s ease;
+    max-width: 350px;
+    text-align: center;
+}
+
+.achievement-notification.show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.achievement-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.achievement-icon {
+    font-size: 3rem;
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-10px); }
+    60% { transform: translateY(-5px); }
+}
+
+.achievement-details h4 {
+    font-size: 1.3rem;
+    margin-bottom: var(--spacing-xs);
+}
+
+.achievement-details p {
+    font-size: 1.1rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.achievement-points {
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius);
+    font-weight: 600;
+}
+
+/* PWA Responsive */
+@media (max-width: 768px) {
+    .install-btn {
+        display: none !important; /* Hide on mobile to avoid clutter */
+    }
+
+    .update-notification {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
+
+    .stats-display {
+        gap: var(--spacing-sm);
+    }
+
+    .stat-item {
+        padding: var(--spacing-xs);
+        font-size: 0.8rem;
+    }
+
+    .points-notification,
+    .achievement-notification {
+        left: 20px;
+        right: 20px;
+        max-width: none;
+    }
 }
 
 /* Hero Section */
