@@ -66,6 +66,9 @@ body {
     color: var(--color-text);
     background-color: var(--color-background-alt);
     font-size: 16px;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    width: 100%;
+    max-width: 100vw;
 }
 
 .container {
@@ -1524,17 +1527,163 @@ body {
         grid-template-columns: 1fr;
         text-align: center;
     }
-    
+
     .hero-title {
         font-size: 3rem;
     }
-    
+
     .hero-stats {
         justify-content: center;
     }
-    
+
     .input-methods {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Mobile Navigation */
+@media (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    .container {
+        padding: 0 var(--spacing-sm);
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--color-background);
+        border-top: 1px solid var(--color-border);
+        padding: var(--spacing-sm) var(--spacing-md);
+        margin-bottom: 0;
+        z-index: 100;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .nav-link {
+        padding: var(--spacing-sm);
+        font-size: 0.8rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        min-width: 60px;
+    }
+
+    .nav-link i {
+        font-size: 1.2rem;
+    }
+
+    .nav-link span {
+        font-size: 0.7rem;
+    }
+
+    /* Add padding to main content to account for fixed nav */
+    .main {
+        padding-bottom: 80px;
+    }
+
+    /* Hide hero on mobile to save space */
+    .hero {
+        display: none;
+    }
+
+    /* Mobile header adjustments */
+    .header-container {
+        padding: 0 var(--spacing-sm);
+    }
+
+    .logo {
+        font-size: 1.2rem;
+    }
+
+    .logo-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 0.9rem;
+    }
+
+    /* Mobile stats display */
+    .stats-display {
+        display: none; /* Hide on mobile to save space */
+    }
+
+    /* Mobile tab content */
+    .tab-content {
+        padding: var(--spacing-md) var(--spacing-sm);
+        padding-bottom: 100px; /* Extra padding for fixed nav */
+    }
+
+    /* Mobile tab navigation improvements */
+    .nav-link {
+        flex: 1;
+        min-width: 0;
+        text-align: center;
+    }
+
+    .nav-link.active {
+        background: var(--color-primary);
+        color: white;
+    }
+
+    /* Ensure tab content doesn't overflow */
+    .tab-pane {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .section-header h2 {
+        font-size: 1.8rem;
+    }
+
+    /* Mobile method cards */
+    .method-card {
+        padding: var(--spacing-md);
+    }
+
+    .method-header {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--spacing-sm);
+    }
+
+    /* Mobile flashcard grid */
+    #flashcardsGrid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+
+    .flashcard {
+        width: 100%;
+        max-width: none;
+    }
+
+    /* Mobile study modal */
+    .study-modal-content {
+        margin: var(--spacing-sm);
+        padding: var(--spacing-lg);
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    /* Mobile rating buttons */
+    .rating-buttons {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+
+    .rating-btn {
+        width: 100%;
+        max-width: 200px;
+        margin: 0 auto;
     }
 }
 
