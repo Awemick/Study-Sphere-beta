@@ -59,27 +59,6 @@
     --color-card-shadow-hover: rgba(0, 0, 0, 0.4);
 }
 
-/* Ensure all text elements use CSS variables for proper theme switching */
-body {
-    color: var(--color-text);
-}
-
-h1, h2, h3, h4, h5, h6 {
-    color: var(--color-text);
-}
-
-p, span, div {
-    color: var(--color-text);
-}
-
-/* Specific text color overrides for better contrast */
-.text-light {
-    color: var(--color-text-light) !important;
-}
-
-.text-lighter {
-    color: var(--color-text-lighter) !important;
-}
 
 * {
     margin: 0;
@@ -251,6 +230,12 @@ body {
 
 [data-theme="dark"] .theme-toggle i.ri-sun-line {
     display: inline;
+}
+
+/* Ensure theme toggle is visible and clickable */
+.theme-toggle {
+    cursor: pointer;
+    user-select: none;
 }
 
 /* Study Modal Styles */
