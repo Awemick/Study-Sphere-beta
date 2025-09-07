@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About StudySphere AI - Smart Adaptive Flashcards</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .about-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .about-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            padding: 4rem 0;
+        }
+
+        .mission-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .mission-section h2 {
+            font-size: 2.5rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .mission-section p {
+            font-size: 1.1rem;
+            color: var(--color-text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background: var(--color-background);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--color-text-light);
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            background: var(--color-background-alt);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--color-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+        }
+
+        .team-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .team-section h2 {
+            font-size: 2.5rem;
+            color: var(--color-text);
+            margin-bottom: 2rem;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-btn {
+            background: white;
+            color: var(--color-primary);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .mission-section h2 {
+                font-size: 2rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo" onclick="window.location.href='/'" style="cursor: pointer;">
+                <div class="logo-icon">
+                    <i class="ri-brain-line"></i>
+                </div>
+                <span>StudySphere AI</span>
+            </div>
+            <nav class="nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link active">About</a>
+                <a href="help.html" class="nav-link">Help</a>
+                <a href="privacy.html" class="nav-link">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <div class="container">
+                <h1>About StudySphere AI</h1>
+                <p>Revolutionizing education through AI-powered adaptive flashcards that learn with you</p>
+            </div>
+        </section>
+
+        <section class="about-content">
+            <div class="container">
+                <div class="mission-section">
+                    <h2>Our Mission</h2>
+                    <p>StudySphere AI is on a mission to democratize education by making learning more effective, engaging, and accessible to everyone. We believe that personalized learning powered by artificial intelligence can transform how people study and retain information.</p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-ai-generate"></i>
+                        </div>
+                        <h3>AI-Powered Generation</h3>
+                        <p>Our advanced AI analyzes your study materials and creates personalized flashcards tailored to your learning style and knowledge level.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-brain-line"></i>
+                        </div>
+                        <h3>Adaptive Learning</h3>
+                        <p>The system adapts to your performance, focusing on areas where you need more practice and reinforcing concepts you know well.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-time-line"></i>
+                        </div>
+                        <h3>Spaced Repetition</h3>
+                        <p>Scientifically proven spaced repetition algorithms ensure you review material at optimal intervals for maximum retention.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-bar-chart-line"></i>
+                        </div>
+                        <h3>Progress Analytics</h3>
+                        <p>Detailed analytics and insights help you track your learning progress and identify areas for improvement.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-file-text-line"></i>
+                        </div>
+                        <h3>Multiple Input Methods</h3>
+                        <p>Upload documents, paste text, record voice notes, or capture images - our AI processes any format into flashcards.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="ri-group-line"></i>
+                        </div>
+                        <h3>Collaborative Learning</h3>
+                        <p>Share study sets with classmates, join study groups, and learn together in a supportive community environment.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats-section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3>10K+</h3>
+                        <p>Active Students</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>50K+</h3>
+                        <p>Flashcards Created</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>95%</h3>
+                        <p>Success Rate</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <p>AI Support</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="container">
+                <h2>Built by Educators, for Learners</h2>
+                <p>StudySphere AI was founded by a team of educators, researchers, and AI experts who believe in the power of personalized learning. Our platform combines cutting-edge artificial intelligence with proven educational methodologies to create the most effective study experience possible.</p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <h2>Ready to Transform Your Learning?</h2>
+                <p>Join thousands of students who are already experiencing the future of education</p>
+                <a href="../index.html" class="cta-btn">Start Learning Now</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i class="ri-brain-line"></i>
+                <span>StudySphere AI</span>
+                <p>Smart Adaptive Flashcards for Better Learning</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/">Create Flashcards</a></li>
+                        <li><a href="/#study">Study Mode</a></li>
+                        <li><a href="/#saved">Library</a></li>
+                        <li><a href="/#pricing">Premium</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="privacy.html">Privacy</a></li>
+                        <li><a href="terms.html">Terms</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="about.html">Our Mission</a></li>
+                        <li><a href="help.html">Support</a></li>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-connect">
+                <h4>Connect With Us</h4>
+                <div class="footer-social">
+                    <a href="mailto:support@studysphere.ai" title="Email"><i class="ri-mail-line"></i></a>
+                    <a href="https://twitter.com/" target="_blank" title="Twitter"><i class="ri-twitter-line"></i></a>
+                    <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="ri-facebook-circle-line"></i></a>
+                    <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+                    <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="ri-linkedin-box-line"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-stats">
+                    <div class="stat">
+                        <span class="number">10K+</span>
+                        <span class="label">Students</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">50K+</span>
+                        <span class="label">Flashcards</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">95%</span>
+                        <span class="label">Success Rate</span>
+                    </div>
+                </div>
+                <div class="footer-copy">
+                    &copy; 2025 StudySphere AI. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
