@@ -533,11 +533,167 @@
 
             <!-- LIBRARY TAB -->
             <section id="library-tab" class="tab-pane">
-              <h2>Your Study Sets</h2>
-              <div id="setsGrid"></div>
+              <div class="container">
+                <div class="section-header">
+                  <h2>Your Learning Library</h2>
+                  <p class="subtitle">Access all your study materials, notes, and resources</p>
+                </div>
 
-              <h3>Your Flashcards</h3>
-              <div id="userFlashcardsGrid"></div>
+                <!-- Library Navigation -->
+                <div class="library-nav">
+                  <button class="library-nav-btn active" data-section="sets">
+                    <i class="ri-book-open-line"></i>
+                    Study Sets
+                  </button>
+                  <button class="library-nav-btn" data-section="flashcards">
+                    <i class="ri-file-list-line"></i>
+                    Flashcards
+                  </button>
+                  <button class="library-nav-btn" data-section="notes">
+                    <i class="ri-sticky-note-line"></i>
+                    Notes
+                  </button>
+                  <button class="library-nav-btn" data-section="resources">
+                    <i class="ri-folder-line"></i>
+                    Resources
+                  </button>
+                </div>
+
+                <!-- Study Sets Section -->
+                <div id="library-sets-section" class="library-section active">
+                  <div class="section-header-small">
+                    <h3>Your Study Sets</h3>
+                    <p>Organized collections of flashcards for different subjects</p>
+                  </div>
+                  <div id="setsGrid" class="library-grid">
+                    <!-- Study sets will be populated here -->
+                  </div>
+                  <div id="noSetsMessage" class="empty-state">
+                    <i class="ri-book-open-line"></i>
+                    <h4>No study sets yet</h4>
+                    <p>Create your first flashcard set to get started!</p>
+                    <button class="cta-btn" onclick="document.querySelector('.nav-link[data-tab=generate]').click()">
+                      Create Flashcards
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Flashcards Section -->
+                <div id="library-flashcards-section" class="library-section">
+                  <div class="section-header-small">
+                    <h3>All Your Flashcards</h3>
+                    <p>View and manage individual flashcards across all your study sets</p>
+                  </div>
+                  <div id="userFlashcardsGrid" class="library-grid">
+                    <!-- Flashcards will be populated here -->
+                  </div>
+                  <div id="noFlashcardsMessage" class="empty-state">
+                    <i class="ri-file-list-line"></i>
+                    <h4>No flashcards yet</h4>
+                    <p>Generate some flashcards to see them here!</p>
+                  </div>
+                </div>
+
+                <!-- Notes Section -->
+                <div id="library-notes-section" class="library-section">
+                  <div class="section-header-small">
+                    <h3>Your Study Notes</h3>
+                    <p>Access your uploaded documents, text notes, and extracted content</p>
+                  </div>
+                  <div class="notes-grid">
+                    <div class="note-item">
+                      <div class="note-icon">
+                        <i class="ri-file-text-line"></i>
+                      </div>
+                      <div class="note-content">
+                        <h4>Text Notes</h4>
+                        <p>Notes you've pasted or typed directly</p>
+                        <span class="note-count">0 notes</span>
+                      </div>
+                    </div>
+                    <div class="note-item">
+                      <div class="note-icon">
+                        <i class="ri-file-pdf-line"></i>
+                      </div>
+                      <div class="note-content">
+                        <h4>PDF Documents</h4>
+                        <p>Extracted text from uploaded PDFs</p>
+                        <span class="note-count">0 documents</span>
+                      </div>
+                    </div>
+                    <div class="note-item">
+                      <div class="note-icon">
+                        <i class="ri-file-word-line"></i>
+                      </div>
+                      <div class="note-content">
+                        <h4>Word Documents</h4>
+                        <p>Extracted text from DOCX files</p>
+                        <span class="note-count">0 documents</span>
+                      </div>
+                    </div>
+                    <div class="note-item">
+                      <div class="note-icon">
+                        <i class="ri-image-line"></i>
+                      </div>
+                      <div class="note-content">
+                        <h4>Image Extractions</h4>
+                        <p>Text extracted from images and screenshots</p>
+                        <span class="note-count">0 extractions</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Resources Section -->
+                <div id="library-resources-section" class="library-section">
+                  <div class="section-header-small">
+                    <h3>Learning Resources</h3>
+                    <p>Helpful tools, guides, and study materials</p>
+                  </div>
+                  <div class="resources-grid">
+                    <div class="resource-item">
+                      <div class="resource-icon">
+                        <i class="ri-lightbulb-line"></i>
+                      </div>
+                      <div class="resource-content">
+                        <h4>Study Tips</h4>
+                        <p>Effective learning strategies and techniques</p>
+                        <a href="pages/help.html" class="resource-link">View Tips</a>
+                      </div>
+                    </div>
+                    <div class="resource-item">
+                      <div class="resource-icon">
+                        <i class="ri-brain-line"></i>
+                      </div>
+                      <div class="resource-content">
+                        <h4>Memory Techniques</h4>
+                        <p>Spaced repetition and memory enhancement methods</p>
+                        <a href="pages/help.html" class="resource-link">Learn More</a>
+                      </div>
+                    </div>
+                    <div class="resource-item">
+                      <div class="resource-icon">
+                        <i class="ri-bar-chart-line"></i>
+                      </div>
+                      <div class="resource-content">
+                        <h4>Progress Tracking</h4>
+                        <p>Monitor your learning progress and achievements</p>
+                        <a href="#stats" class="resource-link" onclick="document.querySelector('.nav-link[data-tab=stats]').click()">View Stats</a>
+                      </div>
+                    </div>
+                    <div class="resource-item">
+                      <div class="resource-icon">
+                        <i class="ri-customer-service-line"></i>
+                      </div>
+                      <div class="resource-content">
+                        <h4>Support Center</h4>
+                        <p>Get help with any questions or issues</p>
+                        <a href="pages/help.html" class="resource-link">Get Support</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </section>
 
             <!-- ANALYTICS TAB -->
@@ -587,10 +743,10 @@
        <div class="footer-section">
          <h4>Product</h4>
          <ul>
-           <li><a href="#generate">Create Flashcards</a></li>
-           <li><a href="#study">Study Mode</a></li>
-           <li><a href="#library">Library</a></li>
-           <li><a href="#pricing">Premium</a></li>
+           <li><a href="#generate-tab">Create Flashcards</a></li>
+           <li><a href="#study-tab">Study Mode</a></li>
+           <li><a href="#saved-tab">Library</a></li>
+           <li><a href="#pricing-tab">Premium</a></li>
          </ul>
        </div>
 
