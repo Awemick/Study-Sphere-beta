@@ -24,7 +24,7 @@
 <body>
     <header class="header">
         <div class="header-container">
-            <div class="logo">
+            <div class="logo" onclick="window.location.href='/'" style="cursor: pointer;">
                 <div class="logo-icon">
                     <i class="ri-brain-line"></i>
                 </div>
@@ -320,36 +320,62 @@
             <!-- STUDY TAB -->
             <section id="study-tab" class="tab-pane">
                 <div class="container">
-                    <div class="section-header">
-                        <h2>Your Study Sets</h2>
-                        <p class="subtitle">Review and manage your flashcards</p>
+                    <div class="section-header animate-on-scroll">
+                        <h2>Your Study Dashboard</h2>
+                        <p class="subtitle">Review your progress and manage flashcards</p>
                     </div>
 
                     <!-- User Stats Display -->
-                    <div class="user-stats-section">
-                        <div class="stats-display">
-                            <div class="stat-item">
-                                <i class="ri-star-line"></i>
-                                <span id="pointsDisplay">0</span>
-                                <span class="stat-label">Points</span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="ri-fire-line"></i>
-                                <span id="streakDisplay">0</span>
-                                <span class="stat-label">Day Streak</span>
-                            </div>
+                    <div class="user-stats-section animate-on-scroll">
+                      <div class="stats-display">
+                        <div class="stat-item animate-on-scroll">
+                          <i class="ri-star-line"></i>
+                          <span id="pointsDisplay">0</span>
+                          <span class="stat-label">Points</span>
                         </div>
+                        <div class="stat-item animate-on-scroll">
+                          <i class="ri-fire-line"></i>
+                          <span id="streakDisplay">0</span>
+                          <span class="stat-label">Day Streak</span>
+                        </div>
+                        <div class="stat-item animate-on-scroll">
+                          <i class="ri-time-line"></i>
+                          <span id="studyTimeDisplay">0</span>
+                          <span class="stat-label">Minutes</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="quick-actions animate-on-scroll">
+                      <button class="action-btn primary" onclick="startQuickReview()">
+                        <i class="ri-play-circle-line"></i>
+                        Quick Review
+                      </button>
+                      <button class="action-btn secondary" onclick="createNewSet()">
+                        <i class="ri-add-circle-line"></i>
+                        New Study Set
+                      </button>
                     </div>
 
                     <!-- Study Sets List -->
-                    <div class="study-sets-list" id="studySetsList">
-                        <!-- Study sets will be populated here -->
-                    </div>
+                    <div class="study-sets-container animate-on-scroll">
+                      <h3>Your Study Sets</h3>
+                      <div class="study-sets-list" id="studySetsList">
+                          <!-- Study sets will be populated here -->
+                      </div>
 
-                    <!-- No Study Sets Message -->
-                    <div id="noStudySetsMessage" class="no-study-sets hidden">
-                        <i class="ri-folder-line"></i>
-                        <span>No study sets found. Create your first set!</span>
+                      <!-- No Study Sets Message -->
+                      <div id="noStudySetsMessage" class="no-study-sets hidden">
+                          <div class="empty-state">
+                            <i class="ri-book-open-line"></i>
+                            <h4>No study sets yet</h4>
+                            <p>Create your first flashcard set to get started!</p>
+                            <button class="cta-btn" onclick="document.querySelector('.nav-link[data-tab=generate]').click()">
+                              Create Flashcards
+                            </button>
+                          </div>
+                      </div>
                     </div>
                 </div>
             </section>
@@ -378,33 +404,42 @@
             <!-- STATS TAB -->
             <section id="stats-tab" class="tab-pane">
                 <div class="container">
-                    <div class="section-header">
-                        <h2>Your Analytics</h2>
-                        <p class="subtitle">Track your learning progress and statistics</p>
+                    <div class="section-header animate-on-scroll">
+                        <h2>Your Learning Analytics</h2>
+                        <p class="subtitle">Track your progress and study patterns</p>
                     </div>
 
                     <!-- Analytics Overview -->
                     <div class="analytics-overview">
-                        <div class="overview-card">
+                        <div class="overview-card animate-on-scroll">
                             <div class="card-header">
-                                <h3>Learning Time</h3>
+                                <i class="ri-time-line"></i>
+                                <h3>Study Time</h3>
                             </div>
                             <div class="card-content">
                                 <span class="time-amount" id="totalStudyTime">0</span>
                                 <span class="time-unit">hours</span>
+                                <div class="progress-ring">
+                                    <div class="progress-circle">
+                                        <div class="progress-value">0%</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="overview-card">
+                        <div class="overview-card animate-on-scroll">
                             <div class="card-header">
-                                <h3>Flashcards Reviewed</h3>
+                                <i class="ri-file-list-line"></i>
+                                <h3>Cards Reviewed</h3>
                             </div>
                             <div class="card-content">
                                 <span class="flashcard-amount" id="totalFlashcardsReviewed">0</span>
+                                <span class="flashcard-label">cards</span>
                             </div>
                         </div>
-                        <div class="overview-card">
+                        <div class="overview-card animate-on-scroll">
                             <div class="card-header">
-                                <h3>Progress</h3>
+                                <i class="ri-bar-chart-line"></i>
+                                <h3>Mastery Level</h3>
                             </div>
                             <div class="card-content">
                                 <div class="progress-bar" id="progressBar">
@@ -415,12 +450,36 @@
                         </div>
                     </div>
 
+                    <!-- Achievement Badges -->
+                    <div class="achievements-section animate-on-scroll">
+                        <h3>Achievements</h3>
+                        <div class="achievement-badges">
+                            <div class="achievement-badge" id="firstStepsBadge">
+                                <i class="ri-walk-line"></i>
+                                <span>First Steps</span>
+                            </div>
+                            <div class="achievement-badge" id="consistentLearnerBadge">
+                                <i class="ri-calendar-check-line"></i>
+                                <span>Consistent</span>
+                            </div>
+                            <div class="achievement-badge" id="speedLearnerBadge">
+                                <i class="ri-flashlight-line"></i>
+                                <span>Speed Learner</span>
+                            </div>
+                            <div class="achievement-badge" id="masterBadge">
+                                <i class="ri-crown-line"></i>
+                                <span>Master</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Detailed Stats -->
-                    <div class="detailed-stats">
-                        <h3>Detailed Statistics</h3>
+                    <div class="detailed-stats animate-on-scroll">
+                        <h3>Detailed Insights</h3>
                         <div class="stats-grid">
                             <div class="stat-card">
                                 <div class="stat-header">
+                                    <i class="ri-book-line"></i>
                                     <h4>Top Subjects</h4>
                                 </div>
                                 <div class="stat-content" id="topSubjectsList">
@@ -429,7 +488,8 @@
                             </div>
                             <div class="stat-card">
                                 <div class="stat-header">
-                                    <h4>Most Active Times</h4>
+                                    <i class="ri-time-circle-line"></i>
+                                    <h4>Study Patterns</h4>
                                 </div>
                                 <div class="stat-content" id="activeTimesList">
                                     <!-- Active times will be populated here -->
@@ -437,11 +497,15 @@
                             </div>
                             <div class="stat-card">
                                 <div class="stat-header">
-                                    <h4>Learning Streak</h4>
+                                    <i class="ri-fire-line"></i>
+                                    <h4>Current Streak</h4>
                                 </div>
                                 <div class="stat-content">
                                     <span class="streak-amount" id="learningStreak">0</span>
                                     <span class="streak-label">days</span>
+                                    <div class="streak-flame">
+                                        🔥
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -512,26 +576,77 @@
     </div>
 
     <footer class="footer">
-  <div class="footer-container">
-    <div class="footer-brand">
-      <i class="ri-brain-line"></i>
-      <span>StudySphere AI</span>
-    </div>
-    <div class="footer-connect">
-      <h4>Connect With Us</h4>
-      <div class="footer-social">
-        <a href="mailto:support@studysphere.ai" title="Email"><i class="ri-mail-line"></i></a>
-        <a href="https://twitter.com/" target="_blank" title="Twitter"><i class="ri-twitter-line"></i></a>
-        <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="ri-facebook-circle-line"></i></a>
-        <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
-        <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="ri-linkedin-box-line"></i></a>
-      </div>
-    </div>
-    <div class="footer-copy">
-      &copy; 2025 StudySphere AI. All rights reserved.
-    </div>
-  </div>
-</footer>
+   <div class="footer-container">
+     <div class="footer-brand">
+       <i class="ri-brain-line"></i>
+       <span>StudySphere AI</span>
+       <p>Smart Adaptive Flashcards for Better Learning</p>
+     </div>
+
+     <div class="footer-links">
+       <div class="footer-section">
+         <h4>Product</h4>
+         <ul>
+           <li><a href="#generate">Create Flashcards</a></li>
+           <li><a href="#study">Study Mode</a></li>
+           <li><a href="#library">Library</a></li>
+           <li><a href="#pricing">Premium</a></li>
+         </ul>
+       </div>
+
+       <div class="footer-section">
+         <h4>Resources</h4>
+         <ul>
+           <li><a href="#" onclick="alert('Help center coming soon!')">Help Center</a></li>
+           <li><a href="#" onclick="alert('Study guides coming soon!')">Study Guides</a></li>
+           <li><a href="#" onclick="alert('API docs coming soon!')">API Docs</a></li>
+           <li><a href="#" onclick="alert('Blog coming soon!')">Blog</a></li>
+         </ul>
+       </div>
+
+       <div class="footer-section">
+         <h4>Company</h4>
+         <ul>
+           <li><a href="#" onclick="alert('About us coming soon!')">About Us</a></li>
+           <li><a href="#" onclick="alert('Careers coming soon!')">Careers</a></li>
+           <li><a href="#" onclick="alert('Privacy policy coming soon!')">Privacy</a></li>
+           <li><a href="#" onclick="alert('Terms coming soon!')">Terms</a></li>
+         </ul>
+       </div>
+     </div>
+
+     <div class="footer-connect">
+       <h4>Connect With Us</h4>
+       <div class="footer-social">
+         <a href="mailto:support@studysphere.ai" title="Email"><i class="ri-mail-line"></i></a>
+         <a href="https://twitter.com/" target="_blank" title="Twitter"><i class="ri-twitter-line"></i></a>
+         <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="ri-facebook-circle-line"></i></a>
+         <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+         <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="ri-linkedin-box-line"></i></a>
+       </div>
+     </div>
+
+     <div class="footer-bottom">
+       <div class="footer-stats">
+         <div class="stat">
+           <span class="number">10K+</span>
+           <span class="label">Students</span>
+         </div>
+         <div class="stat">
+           <span class="number">50K+</span>
+           <span class="label">Flashcards</span>
+         </div>
+         <div class="stat">
+           <span class="number">95%</span>
+           <span class="label">Success Rate</span>
+         </div>
+       </div>
+       <div class="footer-copy">
+         &copy; 2025 StudySphere AI. All rights reserved.
+       </div>
+     </div>
+   </div>
+ </footer>
 
     <script type="module" src="script.js"></script>
 </body>
