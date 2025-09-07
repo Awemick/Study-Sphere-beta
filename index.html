@@ -57,6 +57,28 @@
                     <i class="ri-moon-line"></i>
                     <i class="ri-sun-line"></i>
                 </button>
+                <div id="userProfile" class="user-profile hidden">
+                    <span id="userName">User</span>
+                    <button id="profileMenuBtn" class="profile-menu-btn">
+                        <i class="ri-arrow-down-s-line"></i>
+                    </button>
+                    <div id="profileDropdown" class="profile-dropdown hidden">
+                        <div class="profile-info">
+                            <div class="profile-field">
+                                <label>Name:</label>
+                                <span id="profileFullName">-</span>
+                            </div>
+                            <div class="profile-field">
+                                <label>Birth Date:</label>
+                                <span id="profileDateOfBirth">-</span>
+                            </div>
+                        </div>
+                        <button id="signOutBtn" class="sign-out-btn">
+                            <i class="ri-logout-box-line"></i>
+                            Sign Out
+                        </button>
+                    </div>
+                </div>
                 <button id="authBtn" class="auth-btn">
                     <i class="ri-user-line"></i>
                     Sign In
@@ -716,13 +738,20 @@
 
     <!-- Auth Modal -->
     <div id="authModal" class="hidden" style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:9999;">
-      <div style="background:#fff;padding:2rem;border-radius:12px;min-width:300px;box-shadow:0 4px 24px rgba(0,0,0,0.15);position:relative;">
+      <div style="background:#fff;padding:2rem;border-radius:12px;min-width:350px;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,0.15);position:relative;">
         <button id="closeAuthModal" style="position:absolute;top:12px;right:12px;background:none;border:none;font-size:1.5rem;cursor:pointer;">&times;</button>
         <h2 id="authModalTitle">Sign In</h2>
         <form id="authForm" data-mode="login">
-          <input type="email" id="authEmail" placeholder="Email" required style="width:100%;margin-bottom:1rem;padding:0.5rem;">
-          <input type="password" id="authPassword" placeholder="Password" required style="width:100%;margin-bottom:1rem;padding:0.5rem;">
-          <button type="submit" style="width:100%;padding:0.75rem;background:#6366f1;color:#fff;border:none;border-radius:8px;font-weight:600;">Sign In</button>
+          <input type="email" id="authEmail" placeholder="Email" required style="width:100%;margin-bottom:1rem;padding:0.75rem;border:1px solid #e5e7eb;border-radius:8px;font-size:1rem;">
+          <input type="password" id="authPassword" placeholder="Password" required style="width:100%;margin-bottom:1rem;padding:0.75rem;border:1px solid #e5e7eb;border-radius:8px;font-size:1rem;">
+
+          <!-- Additional fields for sign-up -->
+          <div id="signupFields" style="display:none;">
+            <input type="text" id="authFullName" placeholder="Full Name" style="width:100%;margin-bottom:1rem;padding:0.75rem;border:1px solid #e5e7eb;border-radius:8px;font-size:1rem;">
+            <input type="date" id="authDateOfBirth" placeholder="Date of Birth" style="width:100%;margin-bottom:1rem;padding:0.75rem;border:1px solid #e5e7eb;border-radius:8px;font-size:1rem;">
+          </div>
+
+          <button type="submit" style="width:100%;padding:0.75rem;background:#6366f1;color:#fff;border:none;border-radius:8px;font-weight:600;font-size:1rem;">Sign In</button>
         </form>
         <p style="margin-top:1rem;text-align:center;">
           <span id="toggleAuthMode" style="color:#6366f1;cursor:pointer;text-decoration:underline;">Create new account</span>
