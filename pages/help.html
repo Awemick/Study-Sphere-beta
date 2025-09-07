@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center - StudySphere AI</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        .help-hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .help-hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .help-hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .help-content {
+            padding: 4rem 0;
+        }
+
+        .search-section {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .search-box {
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 3rem 1rem 1rem;
+            border: 2px solid var(--color-border);
+            border-radius: var(--border-radius);
+            font-size: 1.1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.5rem;
+            border-radius: var(--border-radius-sm);
+            cursor: pointer;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .help-category {
+            background: var(--color-background);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .help-category:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .help-category h3 {
+            font-size: 1.3rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .help-category p {
+            color: var(--color-text-light);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-link {
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .category-link:hover {
+            color: var(--color-primary-dark);
+        }
+
+        .faq-section {
+            margin-bottom: 4rem;
+        }
+
+        .faq-section h2 {
+            font-size: 2.5rem;
+            color: var(--color-text);
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .faq-item {
+            background: var(--color-background);
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: var(--color-background-alt);
+        }
+
+        .faq-question h4 {
+            margin: 0;
+            color: var(--color-text);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .faq-toggle {
+            color: var(--color-primary);
+            font-size: 1.2rem;
+            transition: transform 0.2s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--color-text-light);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .contact-section {
+            background: var(--color-background-alt);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            font-size: 2.5rem;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+        }
+
+        .contact-section p {
+            color: var(--color-text-light);
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--color-background);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            margin: 0 auto 1rem;
+        }
+
+        .contact-card h3 {
+            font-size: 1.2rem;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: var(--color-text-light);
+            margin-bottom: 1rem;
+        }
+
+        .contact-btn {
+            background: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .contact-btn:hover {
+            background: var(--color-primary-dark);
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 768px) {
+            .help-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo" onclick="window.location.href='/'" style="cursor: pointer;">
+                <div class="logo-icon">
+                    <i class="ri-brain-line"></i>
+                </div>
+                <span>StudySphere AI</span>
+            </div>
+            <nav class="nav">
+                <a href="../index.html" class="nav-link">Home</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="help.html" class="nav-link active">Help</a>
+                <a href="privacy.html" class="nav-link">Privacy</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="help-hero">
+            <div class="container">
+                <h1>Help Center</h1>
+                <p>Find answers to your questions and get the most out of StudySphere AI</p>
+            </div>
+        </section>
+
+        <section class="help-content">
+            <div class="container">
+                <div class="search-section">
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search for help...">
+                        <button class="search-btn">
+                            <i class="ri-search-line"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="help-grid">
+                    <div class="help-category">
+                        <div class="category-icon">
+                            <i class="ri-file-text-line"></i>
+                        </div>
+                        <h3>Getting Started</h3>
+                        <p>Learn the basics of creating and studying with flashcards. Perfect for new users.</p>
+                        <a href="#getting-started" class="category-link">View Guides →</a>
+                    </div>
+
+                    <div class="help-category">
+                        <div class="category-icon">
+                            <i class="ri-ai-generate"></i>
+                        </div>
+                        <h3>AI Features</h3>
+                        <p>Understand how our AI creates personalized flashcards and adapts to your learning.</p>
+                        <a href="#ai-features" class="category-link">Learn More →</a>
+                    </div>
+
+                    <div class="help-category">
+                        <div class="category-icon">
+                            <i class="ri-account-circle-line"></i>
+                        </div>
+                        <h3>Account & Billing</h3>
+                        <p>Manage your account, subscription, and billing information.</p>
+                        <a href="#account" class="category-link">Account Help →</a>
+                    </div>
+
+                    <div class="help-category">
+                        <div class="category-icon">
+                            <i class="ri-tools-line"></i>
+                        </div>
+                        <h3>Troubleshooting</h3>
+                        <p>Common issues and how to resolve them. Technical support and bug reports.</p>
+                        <a href="#troubleshooting" class="category-link">Fix Issues →</a>
+                    </div>
+                </div>
+
+                <div class="faq-section">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>How does StudySphere AI create flashcards?</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>StudySphere AI uses advanced natural language processing to analyze your study materials and automatically generate relevant flashcards. The AI identifies key concepts, definitions, and relationships in your text to create comprehensive study cards tailored to your content.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>What file formats are supported?</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We support multiple file formats including PDF, DOC, DOCX, TXT files, and images (JPG, PNG, GIF). You can also paste text directly or record voice notes that our AI will transcribe and convert into flashcards.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>How does spaced repetition work?</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Spaced repetition is a scientifically proven learning technique that shows flashcards at increasing intervals based on your performance. Cards you know well appear less frequently, while difficult cards are shown more often to reinforce learning.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Is my data secure?</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we take data security seriously. All your flashcards and personal information are encrypted and stored securely. We never share your data with third parties, and you can delete your account and data at any time.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>What's included in the Premium plan?</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Premium includes unlimited flashcard creation, advanced analytics, priority support, export options, and access to premium AI features. You can compare plans on our pricing page.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <h4>Can I share flashcards with others?</h4>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! You can share your flashcard sets with classmates, study groups, or make them public. Premium users also get collaboration features for group study sessions.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <h2>Still Need Help?</h2>
+                <p>Can't find what you're looking for? Our support team is here to help.</p>
+
+                <div class="contact-options">
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="ri-mail-line"></i>
+                        </div>
+                        <h3>Email Support</h3>
+                        <p>Get detailed help from our support team</p>
+                        <a href="mailto:support@studysphere.ai" class="contact-btn">Email Us</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="ri-message-line"></i>
+                        </div>
+                        <h3>Live Chat</h3>
+                        <p>Chat with our AI assistant for quick answers</p>
+                        <button class="contact-btn" onclick="alert('Live chat coming soon!')">Start Chat</button>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">
+                            <i class="ri-book-line"></i>
+                        </div>
+                        <h3>Documentation</h3>
+                        <p>Browse our detailed user guides and tutorials</p>
+                        <a href="#documentation" class="contact-btn">View Docs</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <i class="ri-brain-line"></i>
+                <span>StudySphere AI</span>
+                <p>Smart Adaptive Flashcards for Better Learning</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="footer-section">
+                    <h4>Product</h4>
+                    <ul>
+                        <li><a href="/">Create Flashcards</a></li>
+                        <li><a href="/#study">Study Mode</a></li>
+                        <li><a href="/#saved">Library</a></li>
+                        <li><a href="/#pricing">Premium</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/help.html">Help Center</a></li>
+                        <li><a href="/about.html">About Us</a></li>
+                        <li><a href="/privacy.html">Privacy</a></li>
+                        <li><a href="/terms.html">Terms</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/about.html">Our Mission</a></li>
+                        <li><a href="/help.html">Support</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-connect">
+                <h4>Connect With Us</h4>
+                <div class="footer-social">
+                    <a href="mailto:support@studysphere.ai" title="Email"><i class="ri-mail-line"></i></a>
+                    <a href="https://twitter.com/" target="_blank" title="Twitter"><i class="ri-twitter-line"></i></a>
+                    <a href="https://facebook.com/" target="_blank" title="Facebook"><i class="ri-facebook-circle-line"></i></a>
+                    <a href="https://instagram.com/" target="_blank" title="Instagram"><i class="ri-instagram-line"></i></a>
+                    <a href="https://linkedin.com/" target="_blank" title="LinkedIn"><i class="ri-linkedin-box-line"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-stats">
+                    <div class="stat">
+                        <span class="number">10K+</span>
+                        <span class="label">Students</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">50K+</span>
+                        <span class="label">Flashcards</span>
+                    </div>
+                    <div class="stat">
+                        <span class="number">95%</span>
+                        <span class="label">Success Rate</span>
+                    </div>
+                </div>
+                <div class="footer-copy">
+                    &copy; 2025 StudySphere AI. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+        }
+
+        // Search functionality
+        document.querySelector('.search-input').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+
+            faqItems.forEach(item => {
+                const question = item.querySelector('h4').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
